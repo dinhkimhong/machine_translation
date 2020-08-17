@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Lemonada:wght@300&family=Pacifico&display=swap" rel="stylesheet">
+        <title>Translate English to French</title>
+        <style type="text/css">
+            .background{
+                min-height: 100vh;
+                background: url({{ url_for('static', filename='img/globe.jpg') }}) center/cover fixed no-repeat;
+            }
+            .font_en{
+                font-family: 'ABeeZee', sans-serif;
+            }
+            .font_fr{
+                font-family: 'Lemonada', cursive;
+            }
+            textarea {
+                border: 1px solid #888;
+            }
+            .t_box{
+                background-color: rgba(0, 0, 0, 0.6);
+            }
+            .title{
+                color: white;
+                font-size: large;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row background justify-content-center align-items-center">
+                    <div class="col-4 py-3 border t_box">
+                        <form>
+                            <div class="form-group">
+                                <label for="english" class='font_en title'>English</label>
+                                <textarea class="form-control font_en" id="english" rows="5"></textarea>
+                            </div>
+                        </form>
+                    
+                    </div>
+                    <div class="col-4 py-3 border t_box">
+                        <form>
+                            <div class="form-group">
+                                <label for="french" class='font_fr title'>French</label>
+                                <textarea class="form-control font_fr" id="french" rows="5"></textarea>
+                            </div>
+                        </form>
+                    </div>
+         
+            </div>
+
+        </div>
+        <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static',filename='js/popper.min.js') }}"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#english").on("keyup", function(){
+                    let english = $("#english").val();
+                    let dataInput = {"english": english};
+                    $.ajax({
+                        type:"GET",
+                        url: "{{url_for('translate_page')}}",
+                        datatype: "json",
+                        data: dataInput,
+                        success: function(result){
+                            $("#french").empty();
+                            $('#french').val(result)
+                        }
+                    })
+
+                })
+            })
+        </script>
+
+    </body>
+</html>
