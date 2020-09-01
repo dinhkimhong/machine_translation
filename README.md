@@ -1,5 +1,5 @@
 # machine_translation
-Build a model to translate from English sentences to French sentences.
+Build a model to translate English sentences to French sentences.
 
 The model is trained by 110,288 sentences with 200 english words and 344 french words.
 
